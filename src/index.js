@@ -4,11 +4,24 @@ import "./index.css";
 import App from "./App.js";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
+import { ThemeProvider } from "styled-components";
+
+const theme = {
+  primary: "white",
+  secondary: "#282c34",
+};
+
+const night = {
+  secondary: "red",
+  primary: "#282c34",
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={night}>
+      <App />
+    </ThemeProvider>
   </React.StrictMode>
 );
 
