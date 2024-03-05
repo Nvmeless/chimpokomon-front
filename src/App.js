@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { ThemeProvider } from "styled-components";
-import { Card, Paragraph, Divider, Button } from "./components/atoms";
+import {
+  Card,
+  Paragraph,
+  Divider,
+  Button,
+  InputText,
+} from "./components/atoms";
 import {
   FaCarrot,
   FaLemon,
@@ -62,6 +68,7 @@ function App() {
   return (
     <>
       <Menu data={menuData} handler={handler}></Menu>
+      <InputText />
       {renderPage()}
       {/* <Card />
 
