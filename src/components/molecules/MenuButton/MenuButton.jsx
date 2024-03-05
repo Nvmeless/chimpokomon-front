@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Button } from "../../atoms";
 
-const MenuButton = ({ icon = <></>, ...props }) => {
+const MenuButton = ({ handler, data, icon = <></>, ...props }) => {
   const [colorButton, setColorButton] = useState(false);
-  const handleColorChange = () => {
-    setColorButton("red");
+  const handlePageChange = () => {
+    handler(data);
   };
   return (
     <Button
-      onClick={handleColorChange}
+      onClick={handlePageChange}
       color={colorButton}
       text={props.children}
       icon={icon}

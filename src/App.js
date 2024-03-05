@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { ThemeProvider } from "styled-components";
@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import { Menu } from "./components/organisms";
 import { MenuButton } from "./components/molecules";
+import { hasFormSubmit } from "@testing-library/user-event/dist/utils";
 const invert = ({ primary, secondary }) => ({
   primary: secondary,
   secondary: primary,
@@ -21,35 +22,55 @@ const menuData = [
   {
     icon: <FaPepperHot></FaPepperHot>,
     text: "Chili",
-    value: "chili",
+    data: "chili",
   },
   {
     icon: <FaCarrot></FaCarrot>,
     text: "Carrot",
-    value: "carrot",
+    data: "carrot",
   },
   {
     icon: <FaLemon></FaLemon>,
     text: "Lemon",
-    value: "lemon",
+    data: "lemon",
   },
 ];
 
 function App() {
-  console.log("Render App");
-  let color = "blue";
+  const [page, setPage] = useState("lemon");
+
+  const renderPage = () => {
+    switch (page) {
+      case "carrot":
+        return <div>Carrot</div>;
+        break;
+      case "lemon":
+        return <div>Lemon</div>;
+        break;
+
+      default:
+      case "chili":
+        return <div>Chilly</div>;
+        break;
+    }
+  };
+
+  const handler = (pageName) => {
+    setPage(pageName);
+  };
+
   return (
     <>
-      <MenuButton icon={<FaPepperHot />}></MenuButton>
-      <Menu data={menuData}></Menu>
-      <Card />
+      <Menu data={menuData} handler={handler}></Menu>
+      {renderPage()}
+      {/* <Card />
 
       <ThemeProvider theme={invert}>
         <Card />
       </ThemeProvider>
 
       <Card></Card>
-      <Paragraph></Paragraph>
+      <Paragraph></Paragraph> */}
     </>
   );
 }
