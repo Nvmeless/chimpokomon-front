@@ -11,7 +11,11 @@ const InputText = () => {
   };
   return (
     <>
-      <StyledInput onChange={handleText} />
+      <StyledInput
+        placeholder="ripipim"
+        defaultValue="Toto"
+        onChange={handleText}
+      />
       {value}
     </>
   );

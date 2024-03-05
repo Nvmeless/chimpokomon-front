@@ -8,6 +8,7 @@ import {
   Divider,
   Button,
   InputText,
+  Clock,
 } from "./components/atoms";
 import {
   FaCarrot,
@@ -48,7 +49,11 @@ function App() {
   const renderPage = () => {
     switch (page) {
       case "carrot":
-        return <div>Carrot</div>;
+        return (
+          <div>
+            <Clock / >
+          </div>
+        );
         break;
       case "lemon":
         return <div>Lemon</div>;
