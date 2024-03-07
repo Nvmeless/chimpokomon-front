@@ -1,5 +1,9 @@
-import { createSlice, configureStore } from "@reduxjs/toolkit";
-
+import {
+  createSlice,
+  configureStore,
+  createAsyncThunk,
+} from "@reduxjs/toolkit";
+import axios from "axios";
 const initialTodoState = [
   {
     id: 0,
@@ -48,9 +52,57 @@ const todoSlice = createSlice({
   },
 });
 
+const playlistSlice = createSlice({
+  name: "playlist",
+  initialState: {
+    playlists: [],
+    status: "idle",
+    error: null,
+  },
+  reducers: {},
+  extraReducers(builder) {
+    builder
+      .addCase(fetchPlaylists.pending, (state, action) => {
+        console.log("Pending");
+        state.status = "loading";
+      })
+      .addCase(fetchPlaylists.fulfilled, (state, action) => {
+        state.status = "succeed";
+        console.log("Success", action.payload);
+        state.playlists = action.payload;
+      })
+      .addCase(fetchPlaylists.rejected, (state, action) => {
+        console.error("Error on t'as dit");
+        state.status = "failed";
+      });
+  },
+});
+
+export const fetchPlaylists = createAsyncThunk(
+  "playlist/fetchPlaylist",
+  async (payload) => {
+    const config = {
+      url: "https://httpbin.org/get",
+      method: "get",
+    };
+    const response = await axios(config)
+      .then((res) => {
+        console.log("HttpBin repondru ", res);
+        return res;
+      })
+      .catch((err) => {
+        console.error("Error: ", err);
+        return err;
+      });
+
+    return response.data;
+  }
+);
+
 export const store = configureStore({
   reducer: {
     todo: todoSlice.reducer,
+    playlists: playlistSlice.reducer,
   },
 });
 

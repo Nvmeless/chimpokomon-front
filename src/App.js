@@ -13,6 +13,7 @@ import TodoList from "./components/organisms/TodoList/TodoList";
 import TodoListCopy from "./components/organisms/TodoListCopy/TodoListCopy.jsx";
 import { Provider } from "react-redux";
 import { store } from "./store";
+import Playlist from "./components/organisms/Playlist/Playlist";
 const menuData = [
   {
     icon: <FaPepperHot></FaPepperHot>,
@@ -48,7 +49,7 @@ const StyledAppContainer = styled.div`
 `;
 
 function App() {
-  const [page, setPage] = useState("lemon");
+  const [page, setPage] = useState("chili");
   const [isNightMode, setIsNightMode] = useState(true);
   const invert = () => (isNightMode ? night : day);
   const handleNightMode = () => {
@@ -64,7 +65,7 @@ function App() {
         );
         break;
       case "lemon":
-        return <div>Lemon</div>;
+        return <Playlist>Lemon</Playlist>;
         break;
 
       default:
