@@ -4,7 +4,7 @@ const Clock = () => {
   const [time, setTime] = useState(0);
   const [tata, setTata] = useState("titi");
   useEffect(() => {
-    console.log("Use Effect");
+
     let clock = setInterval(() => {
       console.log("Interval");
     }, 1000);

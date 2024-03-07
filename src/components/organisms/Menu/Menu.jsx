@@ -3,13 +3,12 @@ import { Card } from "../../atoms";
 import { MenuButton } from "../../molecules";
 
 const Menu = ({ handler, data, ...props }) => {
-  console.log("Menu.render");
   return (
     <div>
       {data.map((x, i) => {
-        let { icon, text, data } = x;
+        let { icon, text, slug } = x;
         return (
-          <MenuButton key={i} handler={handler} icon={icon} data={data}>
+          <MenuButton key={i} handler={handler} icon={icon} slug={slug}>
             {text}
           </MenuButton>
         );

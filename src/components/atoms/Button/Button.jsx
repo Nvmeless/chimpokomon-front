@@ -8,7 +8,6 @@ const StyledButton = styled.button`
   color: ${(props) => (props.color ? props.color : props.theme.primary)};
 `;
 const Button = ({ icon = <></>, text = "", ...props }) => {
-  console.log("Button.render");
   return (
     <StyledButton {...props}>
       {icon}
