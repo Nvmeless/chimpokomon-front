@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider, styled } from "styled-components";
 import {
   Card,
   Paragraph,
@@ -10,22 +10,11 @@ import {
   InputText,
   Clock,
 } from "./components/atoms";
-import {
-  FaCarrot,
-  FaLemon,
-  FaPepperHot,
-  FaPersonBooth,
-  FaUser,
-} from "react-icons/fa";
+import { FaCarrot, FaLemon, FaPepperHot } from "react-icons/fa";
 import { Menu } from "./components/organisms";
-import { MenuButton } from "./components/molecules";
+import { MenuButton, NightModeSwitch } from "./components/molecules";
 import { hasFormSubmit } from "@testing-library/user-event/dist/utils";
 import HttpExample from "./components/atoms/HttpExample/HttpExample";
-
-const invert = ({ primary, secondary }) => ({
-  primary: secondary,
-  secondary: primary,
-});
 
 const menuData = [
   {
@@ -45,9 +34,29 @@ const menuData = [
   },
 ];
 
+const night = {
+  primary: "white",
+  secondary: "#282c34",
+};
+
+const day = {
+  primary: "#282c34",
+  secondary: "white",
+};
+
+const StyledAppContainer = styled.div`
+  background: ${(props) => props.theme.secondary};
+  height: 100vh;
+  width: 100vw;
+`;
+
 function App() {
   const [page, setPage] = useState("lemon");
-
+  const [isNightMode, setIsNightMode] = useState(true);
+  const invert = () => (isNightMode ? night : day);
+  const handleNightMode = () => {
+    setIsNightMode(!isNightMode);
+  };
   const renderPage = () => {
     switch (page) {
       case "carrot":
@@ -72,13 +81,21 @@ function App() {
     setPage(pageName);
   };
 
+  console.log("App.render");
   return (
-    <>
-      <HttpExample></HttpExample>
-      <Menu data={menuData} handler={handler}></Menu>
-      <InputText />
-      {renderPage()}
-      {/* <Card />
+    <ThemeProvider theme={invert(isNightMode)}>
+      <StyledAppContainer>
+        <HttpExample></HttpExample>
+        <Menu data={menuData} handler={handler}>
+          <NightModeSwitch
+            isNightMode={isNightMode}
+            handler={handleNightMode}
+          ></NightModeSwitch>
+        </Menu>
+
+        <InputText />
+        {renderPage()}
+        {/* <Card />
 
       <ThemeProvider theme={invert}>
         <Card />
@@ -86,7 +103,8 @@ function App() {
 
       <Card></Card>
       <Paragraph></Paragraph> */}
-    </>
+      </StyledAppContainer>
+    </ThemeProvider>
   );
 }
 

@@ -2,7 +2,8 @@ import React from "react";
 import { Card } from "../../atoms";
 import { MenuButton } from "../../molecules";
 
-const Menu = ({ handler, data }) => {
+const Menu = ({ handler, data, ...props }) => {
+  console.log("Menu.render");
   return (
     <div>
       {data.map((x, i) => {
@@ -13,6 +14,8 @@ const Menu = ({ handler, data }) => {
           </MenuButton>
         );
       })}
+
+      {props.children}
     </div>
   );
 };

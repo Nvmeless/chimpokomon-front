@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "../../atoms";
 
 const MenuButton = ({ handler, data, icon = <></>, ...props }) => {
-  const [colorButton, setColorButton] = useState(false);
+  const [colorButton, setColorButton] = useState("");
   const handlePageChange = () => {
     handler(data);
   };

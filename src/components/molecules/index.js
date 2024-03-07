@@ -1,3 +1,3 @@
 import MenuButton from "./MenuButton/MenuButton";
-
-export { MenuButton };
+import NightModeSwitch from "./NightModeSwitch/NightModeSwitch";
+export { MenuButton, NightModeSwitch };

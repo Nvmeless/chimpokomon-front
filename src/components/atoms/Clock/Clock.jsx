@@ -4,31 +4,38 @@ const Clock = () => {
   const [time, setTime] = useState(0);
   const [tata, setTata] = useState("titi");
   useEffect(() => {
+    console.log("Use Effect");
     let clock = setInterval(() => {
-      setTime(new Date().toLocaleTimeString());
+      console.log("Interval");
     }, 1000);
-
     return () => {
-      console.log("Intervl cleared");
+        console.log("Clear Interval")
       clearInterval(clock);
     };
   }, []);
 
-  useEffect(() => {
-    console.log("UseEffect Called");
-  }, [tata]);
+  //   useEffect(() => {
+  //     console.log("UseEffect Called");
+  //   }, [tata]);
 
-  
-  const toto = (e) => {
-    console.log("function called");
+  //   const toto = (e) => {
+  //     console.log("function called");
 
-    setTata("tata");
+  //     setTata("tata");
 
-    if (e.target.value == "tonton") {
-      setTata("tonton");
-    }
-  };
-  return <input placeholder={time} onChange={toto}></input>;
+  //     if (e.target.value == "tonton") {
+  //       setTata("tonton");
+  //     }
+  //   };
+  return (
+    <input
+      placeholder={time}
+      onChange={() => {
+        setTime(1);
+        console.log(time);
+      }}
+    ></input>
+  );
 };
 
 export default Clock;
