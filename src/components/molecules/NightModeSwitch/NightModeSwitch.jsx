@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "../../atoms";
 import { FaMoon, FaSun } from "react-icons/fa";
+import { NightModeContext } from "../../../contexts";
 const NightModeSwitch = ({ handler, isNightMode, ...props }) => {
-  const [nightMode, setNightMode] = useState(isNightMode);
-  const handleNightMode = () => {
-    handler();
-    setNightMode(!nightMode);
-  };
+  const nightModeContext = useContext(NightModeContext);
+  const [nightMode, setNightMode] = useState(nightModeContext.nightMode);
+
   console.log("NightModeSwitch.render");
   return (
     <Button
-      onClick={handleNightMode}
-      icon={!nightMode ? <FaMoon /> : <FaSun />}
+      onClick={nightModeContext.changeNightMode}
+      icon={!nightModeContext.nightMode ? <FaMoon /> : <FaSun />}
     ></Button>
   );
 };

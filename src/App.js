@@ -1,20 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext, createContext } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { ThemeProvider, styled } from "styled-components";
-import {
-  Card,
-  Paragraph,
-  Divider,
-  Button,
-  InputText,
-  Clock,
-} from "./components/atoms";
+import { InputText, Clock } from "./components/atoms";
 import { FaCarrot, FaLemon, FaPepperHot } from "react-icons/fa";
 import { Menu } from "./components/organisms";
 import { MenuButton, NightModeSwitch } from "./components/molecules";
 import { hasFormSubmit } from "@testing-library/user-event/dist/utils";
 import HttpExample from "./components/atoms/HttpExample/HttpExample";
+import { NightModeProvider } from "./contexts";
 
 const menuData = [
   {
@@ -84,26 +78,24 @@ function App() {
   console.log("App.render");
   return (
     <ThemeProvider theme={invert(isNightMode)}>
-      <StyledAppContainer>
-        <HttpExample></HttpExample>
-        <Menu data={menuData} handler={handler}>
-          <NightModeSwitch
-            isNightMode={isNightMode}
-            handler={handleNightMode}
-          ></NightModeSwitch>
-        </Menu>
+      <NightModeProvider
+        value={{
+          changeNightMode: () => {
+            setIsNightMode(!isNightMode);
+          },
+          nightMode: isNightMode,
+        }}
+      >
+        <StyledAppContainer>
+          <HttpExample></HttpExample>
+          <Menu data={menuData} handler={handler}>
+            <NightModeSwitch></NightModeSwitch>
+          </Menu>
 
-        <InputText />
-        {renderPage()}
-        {/* <Card />
-
-      <ThemeProvider theme={invert}>
-        <Card />
-      </ThemeProvider>
-
-      <Card></Card>
-      <Paragraph></Paragraph> */}
-      </StyledAppContainer>
+          <InputText />
+          {renderPage()}
+        </StyledAppContainer>
+      </NightModeProvider>
     </ThemeProvider>
   );
 }
