@@ -23,12 +23,27 @@ const todoSlice = createSlice({
   initialState: initialTodoState,
   reducers: {
     addTask: (state, action) => {
+      //   const newState = [...state];
+
       const newTodoTask = {
         id: Date.now(),
         textInputValue: action.payload,
         checkBoxValue: false,
       };
+
       state.push(newTodoTask);
+      //   newState.push(newTodoTask);
+      //   return newState;
+    },
+    toggleTask: (state, action) => {
+      const task = state.find((t) => {
+        return t.id === action.payload;
+      });
+      task.checkBoxValue = !task.checkBoxValue;
+    },
+    deleteTask: (state, action) => {
+      state = state.filter((t) => t.id !== action.payload);
+      return state;
     },
   },
 });
@@ -39,4 +54,4 @@ export const store = configureStore({
   },
 });
 
-export const { addTask } = todoSlice.actions;
+export const { addTask, toggleTask, deleteTask } = todoSlice.actions;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ListItem, List, InputText, Button } from "../../atoms";
 import TodoTask from "../../molecules/TodoTask/TodoTask";
 import { useDispatch, useSelector } from "react-redux";
-import { addTask } from "../../../store";
+import { addTask, deleteTask, toggleTask } from "../../../store";
 const TodoList = () => {
   const todoTasks = useSelector((state) => {
     return state.todo;
@@ -19,7 +19,20 @@ const TodoList = () => {
     <>
       <List>
         {todoTasks.map((x, i) => {
-          return <TodoTask {...x} key={i}></TodoTask>;
+          console.log(x);
+          return (
+            <TodoTask
+              onCheck={() => {
+                dispatch(toggleTask(x.id));
+              }}
+              onDelete={() => {
+                dispatch(deleteTask(x.id));
+              }}
+              onChangeValue={() => {}}
+              {...x}
+              key={i}
+            ></TodoTask>
+          );
         })}
       </List>
 
