@@ -4,7 +4,7 @@ import { MenuButton } from "../../molecules";
 
 const Menu = ({ handler, data, ...props }) => {
   return (
-    <div>
+    <Card height='20px'>
       {data.map((x, i) => {
         let { icon, text, slug } = x;
         return (
@@ -15,7 +15,7 @@ const Menu = ({ handler, data, ...props }) => {
       })}
 
       {props.children}
-    </div>
+    </Card>
   );
 };
 

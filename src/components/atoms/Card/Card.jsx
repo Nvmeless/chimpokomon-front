@@ -7,10 +7,11 @@ import { styled } from "styled-components";
 const CardStyle = styled.div`
   background-color: ${(props) => props.theme.secondary ?? "white"};
   color: ${(props) => props.theme.primary ?? "white"};
+  height: ${(props) => props.height};
 `;
 
 const Card = (props) => {
-  return <CardStyle {...props}>{"Cette card n'a pas de contenu"}</CardStyle>;
+  return <CardStyle {...props}></CardStyle>;
 };
 
 export default Card;
