@@ -12,9 +12,9 @@ export default function Offline({ children }) {
   useEffect(() => {
     if (!online) {
       console.log("Offline");
+    } else {
+      console.log("Online");
     }
-
-    console.log("Online");
   }, [online]);
 
   useEffect(() => {
@@ -27,9 +27,5 @@ export default function Offline({ children }) {
     };
   }, []);
 
-  return (
-    <>
-      <div>{children}</div>
-    </>
-  );
+  return <>{online ? <></> : <div>{children}</div>}</>;
 }

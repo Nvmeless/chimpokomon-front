@@ -14,6 +14,7 @@ import TodoListCopy from "./components/organisms/TodoListCopy/TodoListCopy.jsx";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import Playlist from "./components/organisms/Playlist/Playlist";
+import Offline from "./Offline";
 const menuData = [
   {
     icon: <FaPepperHot></FaPepperHot>,
@@ -81,6 +82,7 @@ function App() {
 
   return (
     <Provider store={store}>
+      <Offline>Hallo Hallo</Offline>
       <ThemeProvider theme={invert(isNightMode)}>
         <NightModeProvider
           value={{
