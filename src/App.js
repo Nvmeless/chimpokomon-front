@@ -14,6 +14,23 @@ import TodoListCopy from "./components/organisms/TodoListCopy/TodoListCopy.jsx";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import Playlist from "./components/organisms/Playlist/Playlist";
+import Scene from "./playground/Scene";
+import Box from "./playground/Box";
+import { Environment, OrbitControls } from "@react-three/drei";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader";
+import { useLoader } from "@react-three/fiber";
+const ObjImport = () => {
+  const materials = useLoader(MTLLoader, "./Room.mtl");
+  const obj = useLoader(OBJLoader, "./Room.obj", (loader) => {
+    materials.preload();
+    loader.setMaterials(materials);
+  });
+
+  console.log(obj);
+  return <primitive object={obj} scale={0.4} />;
+};
+
 const menuData = [
   {
     icon: <FaPepperHot></FaPepperHot>,
@@ -55,6 +72,7 @@ function App() {
   const handleNightMode = () => {
     setIsNightMode(!isNightMode);
   };
+
   const renderPage = () => {
     switch (page) {
       case "carrot":
@@ -90,6 +108,42 @@ function App() {
             nightMode: isNightMode,
           }}
         >
+          <Scene>
+            <ambientLight intensity={Math.PI / 2} />
+            <spotLight
+              position={[10, 10, 10]}
+              angle={0.15}
+              penumbra={1}
+              decay={0}
+              intensity={Math.PI}
+            />
+            <pointLight
+              position={[-10, -10, -10]}
+              decay={0}
+              intensity={Math.PI}
+            />
+            <Box
+              position={[1.2, 0, 0]}
+              animation={(meshRef) => {
+                return (state, delta) => (meshRef.current.rotation.x += delta);
+              }}
+            ></Box>
+            <Box
+              position={[-1.2, 0, 0]}
+              animation={(meshRef) => {
+                return (state, delta) => (meshRef.current.rotation.x += delta);
+              }}
+            ></Box>
+            <Box
+              position={[0, 0, 0]}
+              animation={(meshRef) => {
+                return (state, delta) => (meshRef.current.rotation.x += delta);
+              }}
+            ></Box>
+            <ObjImport />
+            <OrbitControls />
+          </Scene>
+
           <StyledAppContainer>
             <HttpExample></HttpExample>
             <Menu data={menuData} handler={handler}>
